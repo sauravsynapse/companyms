@@ -1,8 +1,9 @@
 package com.jobex.companyms.companies.impl;
 
-import com.jobex.jobapp.companies.Company;
-import com.jobex.jobapp.companies.CompanyRepository;
-import com.jobex.jobapp.companies.CompanyService;
+
+import com.jobex.companyms.companies.Company;
+import com.jobex.companyms.companies.CompanyRepository;
+import com.jobex.companyms.companies.CompanyService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,7 +47,6 @@ public class CompanyServiceImpl implements CompanyService {
             Company company = companyOptional.get();
             company.setCompanyName(updatedCompany.getCompanyName());
             company.setDescription(updatedCompany.getDescription());
-            company.setJobs(updatedCompany.getJobs());
             companyRepository.save(company);
             return true;
         }
