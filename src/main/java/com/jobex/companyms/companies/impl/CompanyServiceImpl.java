@@ -4,6 +4,8 @@ package com.jobex.companyms.companies.impl;
 import com.jobex.companyms.companies.Company;
 import com.jobex.companyms.companies.CompanyRepository;
 import com.jobex.companyms.companies.CompanyService;
+import com.jobex.companyms.companies.clients.ReviewClient;
+import com.jobex.companyms.companies.dto.ReviewMessage;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,9 +15,10 @@ import java.util.Optional;
 public class CompanyServiceImpl implements CompanyService {
 
     private CompanyRepository companyRepository;
-
-    public CompanyServiceImpl(CompanyRepository companyRepository) {
+    private ReviewClient reviewClient;
+    public CompanyServiceImpl(CompanyRepository companyRepository, ReviewClient reviewClient) {
         this.companyRepository = companyRepository;
+        this.reviewClient=reviewClient;
     }
 
     @Override
@@ -62,6 +65,15 @@ public class CompanyServiceImpl implements CompanyService {
         }
         else
             return false;
+    }
+
+    @Override
+    public void updateCompanyRating(ReviewMessage reviewMessage) {
+        Company company = getCompanyById(reviewMessage.getCompanyId());
+
+        double averageRating = reviewClient.getAverageRatingForCompany(reviewMessage.getCompanyId());
+        company.setRating(averageRating);
+        companyRepository.save(company);
     }
 }
 

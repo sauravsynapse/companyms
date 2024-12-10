@@ -1,4 +1,6 @@
 package com.jobex.companyms.companies;
+import com.jobex.companyms.companies.dto.ReviewMessage;
+
 import java.util.List;
 
 public interface CompanyService {
@@ -11,4 +13,6 @@ public interface CompanyService {
     boolean updateCompanyById(Long id, Company company);
 
     boolean deleteCompanyById(Long id);
+
+    public void updateCompanyRating(ReviewMessage reviewMessage);
 }
